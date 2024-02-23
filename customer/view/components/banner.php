@@ -1,9 +1,9 @@
 <!-- Declaring variables -->
 <?php
     $banner_images = [
-        'public/images/banner-home/banner_1.png',
-        'public/images/banner-home/banner_2.png',
-        'public/images/banner-home/banner_3.png'
+        'https://images.fpt.shop/unsafe/fit-in/1190x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2024/1/9/638403910189404957_H6%20-%201190x300.png',
+        'https://images.fpt.shop/unsafe/fit-in/1190x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2024/1/10/638405243538531469_H6%20-%201190x300.png',
+        'https://images.fpt.shop/unsafe/fit-in/1190x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2024/2/16/638436917572248440_H6%20-%201190x300.png'
     ];
 ?>
 

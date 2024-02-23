@@ -66,7 +66,7 @@
                             <form action="" method="post">
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                     <span class="h1 fw-bold mb-0">
-                                        <a href="../index.php">
+                                        <a href="../../index.php">
                                             <img src="<?php echo $background_logo?>" alt="logo" height="52px">
                                         </a>
                                     </span>

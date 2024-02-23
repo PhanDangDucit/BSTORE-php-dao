@@ -1,5 +1,5 @@
 <?php
-    $page = $_GET['page'];
+    require_once 'controllers/index.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,12 @@
     </script>
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="https://kit.fontawesome.com/8c204d0fdf.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Admin - Bstore</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://kit.fontawesome.com/8c204d0fdf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="public/style.css">
 </head>
 
 <body>
@@ -36,7 +41,7 @@
                         <a href="index.php?page=order"><i class="fa-solid fa-cart-shopping ico-side"></i>Quản lí đơn hàng</a>
                     </li>
                     <li>
-                        <a href="index.php?page=caterogies"><i class="fa-solid fa-folder-open ico-side"></i>Quản lí danh mục</a>
+                        <a href="index.php?page=categories"><i class="fa-solid fa-folder-open ico-side"></i>Quản lí danh mục</a>
                     </li>
                     <li>
                         <a href="index.php?page=products"><i class="fa-solid fa-mug-hot ico-side"></i>Quản lí sản phẩm</a>
@@ -53,28 +58,35 @@
                 </ul>
             </nav>
             <?php
-                switch ($page) {
-                    case 'categories':
-                        require_once 'categories.php';
-                        break;
-                    case 'order':
-                        require_once 'order.php';
-                        break;
-                    case 'products':
-                        require_once 'products.php';
-                        break;
-                    case 'users':
-                        require_once 'users.php';
-                        break;
-                    case 'categories':
-                        require_once 'categories.php';
-                        break;
-                    case 'logout':
-                        require_once 'logout.php';
-                        break;
-                    default:
-                        require_once 'home.php';
-                        break;
+                if(isset($page)) {
+                    switch ($page) {
+                        case 'categories':
+                            require_once 'categories.php';
+                            break;
+                        case 'order':
+                            require_once 'order.php';
+                            break;
+                        case 'products':
+                            require_once 'products.php';
+                            break;
+                        case 'users':
+                            require_once 'users.php';
+                            break;
+                        case 'categories':
+                            require_once 'categories.php';
+                            break;
+                        case 'logout':
+                            require_once 'logout.php';
+                            break;
+                        case 'edit-categories':
+                            require_once 'edit-categories.php';
+                            break;
+                        default:
+                            require_once 'home.php';
+                            break;
+                    }
+                } else {
+                    require_once 'home.php';
                 }
             ?>
         </div>

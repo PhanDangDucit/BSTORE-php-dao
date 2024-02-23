@@ -1,30 +1,6 @@
-<?php
-    if(isset($_POST['btn'])) {
-        $email = trim(strip_tags($_POST['email']));
-        $mk = trim(strip_tags($_POST['matkhau']));
-        require_once "../../models/functions.php";
-        $kq = checkEmailPass($email, $mk); // Tra ve string or user info
-        if(session_status() === PHP_SESSION_NONE) session_start();
-        if(is_string($kq) == true) {
-            $_SESSION['thongbao'] = $kq;
-            header("location:../index.php?page=thongbao");
-            exit();
-        } else {
-            $_SESSION['id_user'] = $kq['id_user'];
-            $_SESSION['ho'] = $kq['ho'];
-            $_SESSION['hinh'] = $kq['hinh'];
-            $_SESSION['ten'] = $kq['ten'];
-            $_SESSION['email'] = $kq['email'];
-            $_SESSION['vaitro'] = $kq['vaitro'];
-            if(isset($_SESSION['back'])) {
-                header('location: ' . $_SESSION['back']);
-            } else {
-                header('location: ../index.php');
-            }
-            exit();
-        }
-    }
-    $background_logo = '../../public/images/brands/none-background_logo.svg';
+<?php 
+    require_once "../../controller/signin_controller.php";
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,27 +24,29 @@
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                         <div class="card-body p-4 p-lg-5 text-black">
-                            <form action="" method="post">
+                            <form action="../../controller/signin_controller.php" method="post" id="form-signin">
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                     <span class="h1 fw-bold mb-0">
-                                        <a href="../index.php">
-                                            <img src="<?php echo $background_logo?>" alt="logo" height="52px">
+                                        <a href="../../index.php">
+                                            <img src="<?php echo $background_logo ?>" alt="logo" height="52px">
                                         </a>
                                     </span>
                                 </div>
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example17">Email</label>
+                                    <label class="form-label" for="form2Example17">Email<?php if(isset($_SESSION['id_sp'])) {
+        echo ('hello');
+    }?></label>
                                     <input type="email" id="form2Example17" name="email" class="form-control form-control-lg" />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="form2Example27">Password</label>
+                                    <label class="form-label" for="form2Example27">Password <?php if(isset($temp)) { echo $temp;}?></label>
                                     <input type="password" name="matkhau" id="form2Example27" class="form-control form-control-lg" />
                                 </div>
                                 <div class="pt-1 mb-4">
-                                    <button class="btn btn-dark btn-lg btn-block" name="btn" type="submit">Login</button>
+                                    <button class="btn btn-dark btn-lg btn-block" name="btn" type="submit">Login </button>
                                 </div>
-                                <a class="small text-muted" href="../pages/forgotpassword.php">Forgot password?</a>
+                                <a class="small text-muted" href="../pages/forgot_password.php">Forgot password?</a>
                                 <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? 
                                     <a href="./dangky.php" style="color: #393f81;">Register here</a>
                                 </p>
@@ -83,5 +61,20 @@
                 </div>
             </div>
         </section>
+        <?php if(isset($temp)) { ?>
+            <form action="index.php?page=cart" class="w-full h-full d-none" method="post" id="form-add-cart">
+                <button type="submit" name="btn-add-cart">
+                    <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                </button>
+                <input type="text" hidden name="id_sp" value="<?=$_POST['id_sp']?>"/>
+            </form>
+        <?php }; ?>
+        <script>
+            const formSignin = document.querySelector('form-signin');
+            const formAddCart = document.getElementById('form-add-cart') || undefined;
+            if(formAddCart) {
+                console.log(formAddCart);
+            }
+        </script>
     </body>
 </html>

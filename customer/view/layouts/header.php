@@ -5,9 +5,9 @@
         ['item'=>'signup', 'link'=>'dangky'],
     ];
     $account_info_signed = [
-        ['item'=>'Hồ sơ', 'link'=>'profile'],
-        ['item'=>'Thay đổi mật khẩu', 'link'=>'doipass'],
-        ['item'=>'Đăng xuất', 'link'=>'thoat'],
+        ['item'=>'Profile', 'link'=>'profile'],
+        ['item'=>'Change password', 'link'=>'doipass'],
+        ['item'=>'Logout', 'link'=>'thoat'],
     ];
     if(isset($_SESSION['ten'])) {
         $account_action = $account_info_signed;
@@ -71,7 +71,11 @@
                         <i class="fa-solid fa-cart-shopping text-white"></i>
                     </a>
                     <span id="quantity-cart" class="position-absolute">
-                        <p>0</p>
+                        <p>
+                            <?php 
+                                echo $quantity_all_products;
+                            ?>
+                        </p>
                     </span>
                 </li>
                 <li class="nav-item dropdown">
@@ -83,7 +87,7 @@
                     <ul class="dropdown-menu">
                         <?php foreach($account_action as $item) { ?>
                             <li>
-                                <a class="dropdown-item" href="pages/<?php echo $item['link']; ?>.php"><?php echo $item['item']; ?></a>
+                                <a class="dropdown-item" href="view/pages/<?php echo $item['link']; ?>.php"><?php echo $item['item']; ?></a>
                             </li>
                         <?php } ?>
                     </ul>
@@ -93,9 +97,5 @@
     </div>
 </nav>
 <nav id="nav-main">
-    <?php require_once "loaisp.php" ?>
+    <?php require_once "nav_main.php" ?>
 </nav>
-
-<script>
-    showQuantity();
-</script>

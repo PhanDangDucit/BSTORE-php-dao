@@ -1,42 +1,6 @@
 <?php
-    session_start();
-    if(isset($_POST['btn'])) {
-        // start session
-        // Nhan data tu form
-        $ho = trim(strip_tags($_POST['ho']));
-        $ten = trim(strip_tags($_POST['ten']));
-        $email = trim(strip_tags($_POST['email']));
-        $mk = trim(strip_tags($_POST['matkhau']));
-        $vaitro = trim(strip_tags($_POST['vaitro']));
-        $dienthoai = trim(strip_tags($_POST['dienthoai']));
-        $dienthoai = trim(strip_tags($_POST['diachi']));
-        // Validate datas of form
-        $loi = "";
-        if($email=="" || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
-            $loi .= 'Bạn chưa nhập đúng email<br>';
-        }
-        if(strlen($mk) < 6) $loi.="Bạn nhập mật khẩu quá ngắn<br>";
-        if($loi != "") {
-            $_SESSION['thongbao'] = $loi;
-            header("location:../index.php?page=thongbao");
-            exit();
-        }
-        
-        // Chen vao datatbase
-        require_once "../../models/functions.php";
-        $mk = password_hash($mk, PASSWORD_BCRYPT);
-        $kq = createNewUser($ho, $ten, $email, $mk, $vaitro, $dienthoai, $diachi);
-        if($kq) {
-            $_SESSION['thongbao'] = "Chúc mừng bạn đã đăng ký tài khoản thành công! </br>";
-        } else {
-            $_SESSION['thongbao'] = "Email này đã được sử dụng $email </br>";
-        }
-        header("location:dangnhap.php");
-    }
-    $background_logo = '../../public/images/brands/none-background_logo.svg';
-
+    require_once "../../controller/signup_controller.php"
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,14 +18,14 @@
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
-                            alt="login form" class="img-fluid h-100" style="border-radius: 1rem 0 0 1rem;" />
+                            alt="login form" class="img-fluid h-100" style="border-radius: 1rem 0 0 1rem; object-fit:cover;" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                         <div class="card-body p-4 p-lg-5 text-black">
-                            <form action="" method="post">
+                            <form action="../../controller/signup_controller.php" method="post">
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                     <span class="h1 fw-bold mb-0">
-                                        <a href="../index.php">
+                                        <a href="../../index.php">
                                             <img src="<?php echo $background_logo?>" alt="logo" height="52px">
                                         </a>
                                     </span>

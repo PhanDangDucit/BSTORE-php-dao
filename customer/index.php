@@ -1,5 +1,6 @@
 <?php
     require_once "controller/index.php";
+    
 ?>
 <head>
     <title>BSTORE</title>
@@ -39,7 +40,7 @@
                 $is_home_page_url = $url== '/duanmau/project/customer/index.php'|| $url == '/duanmau/project/customer/';
                 if($is_home_page_url) {
                     require_once "view/components/banner.php"; ?>
-                    <aside class=col-3>'
+                    <aside class="col-3">'
                         <?php
                             require_once "view/layouts/aside.php"
                         ?>
@@ -68,6 +69,8 @@
                         case 'thongbao':
                             require_once 'view/pages/thongbao.php';
                             break;
+                        case 'payment':
+                            require_once 'view/pages/payment.php';
                         default:
                             if($is_home_page_url) {
                                 require_once 'view/pages/home.php';
@@ -78,6 +81,7 @@
             </article>
         </main>
     </div>
+    
     <?php
         require_once "view/layouts/footer.php"
     ?>

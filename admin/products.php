@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    if(isset($_SESSION['delete_failed'])) {
+        require_once 'assets/php/toast_message_failed.php';
+        unset($_SESSION['delete_failed']);
+    } else if(isset($_SESSION['delete_success'])) {
+        require_once 'assets/php/toast_message_success.php';
+        unset($_SESSION['delete_success']);
+    }
+?>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +34,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <title>Document</title>
-</head>
+</head> -->
 
 <body>
     <div class="container-fluid main-page">
@@ -33,127 +44,105 @@
                     Sản phẩm
                 </h3>
                 <div class="d-flex justify-content-end">
-                    <a href="addProduct.html" class="btn btn-primary mb-2">Thêm sản phẩm</a>
+                    <a href="index.php?page=add-product" class="btn btn-primary mb-2">Thêm sản phẩm</a>
                 </div>
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Gia</th>
+                            <th>So luot xem</th>
+                            <th>Loai san pham</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011-04-25</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011-07-25</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Serge Baldwin</td>
-                            <td>Data Coordinator</td>
-                            <td>Singapore</td>
-                            <td>64</td>
-                            <td>2012-04-09</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Zenaida Frank</td>
-                            <td>Software Engineer</td>
-                            <td>New York</td>
-                            <td>63</td>
-                            <td>2010-01-04</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Zorita Serrano</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>56</td>
-                            <td>2012-06-01</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jennifer Acosta</td>
-                            <td>Junior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>43</td>
-                            <td>2013-02-01</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cara Stevens</td>
-                            <td>Sales Assistant</td>
-                            <td>New York</td>
-                            <td>46</td>
-                            <td>2011-12-06</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Hermione Butler</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>47</td>
-                            <td>2011-03-21</td>
-                            <td>
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Sửa</a>
-                                <a href="#" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa</a>
-                            </td>
-                        </tr>
+                        <?php
+                            $products = get_all_products();
+                            foreach($products as $product) {
+                        ?>
+                            <tr>
+                                <td><?=$product['ten_sp']?></td>
+                                <td><?=$product['gia']?></td>
+                                <td><?=$product['soluotxem']?></td>
+                                <td>
+                                    <?php 
+                                        $loai_sp = get_name_kind($product['id_loai']);
+                                        echo $loai_sp['ten_loai'];
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="index.php?page=edit-categories&id_sp=<?=$product['id_sp']?>" class="btn btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i>Sửa
+                                    </a>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-name="<?=$product['ten_sp']?>" data-bs-id="<?=$product['id_sp']?>">
+                                        <i class="fa-solid fa-trash"></i>Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php }?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Gia</th>
+                            <th>So luot xem</th>
+                            <th>Loai san pham</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-red">
+                    <h3 class="modal-title" id="exampleModalLabel"></i></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4></h4>
+                </div>
+                <div class="modal-footer">
+                        <a href="#" class="btn btn-danger">Delete</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new DataTable('#example');
+        const exampleModal = document.getElementById('exampleModal');
+
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                console.log(button);
+                const nameProduct = button.getAttribute('data-bs-name');
+                const idProduct = button.getAttribute('data-bs-id');
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+                // Update the modal's content.
+                const modalTitle = exampleModal.querySelector('.modal-title');
+                const modalBodyInput = exampleModal.querySelector('.modal-body h4');
+                const deleteElement = exampleModal.querySelector('a');
+                modalTitle.innerHTML = 'Warning ' + '<i class="fa-solid fa-skull-crossbones">';
+                modalBodyInput.textContent = `You want to remove ${nameProduct}`;
+                deleteElement.href = `index.php?page=delete-product&id_sp=${idProduct}`;
+            })
+        }
+        
+    </script>
     <script src="assets/js/main.js"></script>
     <script>
         new DataTable('#example');
     </script>
 </body>
 
-</html>
+<!-- </html> -->

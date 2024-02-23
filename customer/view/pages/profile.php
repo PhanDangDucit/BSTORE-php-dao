@@ -29,7 +29,7 @@
     }
 </style>
 <div class="logo">
-    <a href="../index.php"><img src="<?php echo $background_logo?>" alt=""></a>
+    <a href="../../index.php"><img src="<?php echo $background_logo?>" alt=""></a>
 </div>
 <div class="avatar">
     <h2>AVATAR</h2>
